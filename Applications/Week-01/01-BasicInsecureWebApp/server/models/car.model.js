@@ -4,7 +4,7 @@ class Car {
     }
 
     toString() {
-        return `Make: ${this.make}, Model: ${this.model}`;
+        return `Make: ${this.make}, Model: ${this.model}, Year: ${this.year}`;
     }
 }
 

@@ -4,6 +4,7 @@ CREATE TABLE cars (
     id SERIAL NOT NULL,
     make character varying NOT NULL,
     model character varying NOT NULL,
+    year character varying NOT NULL,
     created_at timestamp NOT NULL default now(),
     updated_at timestamp NOT NULL default now(),
     is_deleted boolean DEFAULT false NOT NULL
