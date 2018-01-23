@@ -3,14 +3,14 @@ version: "3.3"
 services:
   postgres:
     build: ./database
-    image: appsec-postgres:blog2
+    image: appsec-postgres:01-02
     env_file: ./server/.env
     networks:
       - backend
     ports:
       - "5432:5432"
   apiserver:
-    image: "node:8"
+    image: "node:9"
     env_file: ./server/.env
     working_dir: /home/node/server
     depends_on: 
