@@ -2,6 +2,7 @@
 let _baseUrl = "http://localhost";
 let _port = "3000";
 
+
 function getPosts() {
     clearEdit();
 
@@ -29,16 +30,21 @@ function generatePosts(data) {
     });
 }
 
+// dropdown
+
+
+console.log(sort);
+
+
 function searchPosts(e) {
     e.preventDefault();
-
+    let sort = document.getElementById('sort').value;
     let list = document.getElementById("post-list");
     list.innerHTML = "";
     let searchVal = $('#search').val();
-    console.log(searchVal)
     clearEdit();
 
-    jQuery.post(`${_baseUrl}:${_port}/api/post/search`, { search: searchVal }, function(data) {
+    jQuery.post(`${_baseUrl}:${_port}/api/post/search`, { search: searchVal, order: sort }, function(data) {
         generatePosts(data);
     });
 }
