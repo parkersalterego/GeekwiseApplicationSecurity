@@ -19,9 +19,9 @@ class UserController {
 
     async login(req, res, next) {
         try {
-            let username = req.body.username;
             let password = req.body.password;
-            const data = await UserDb.getUserLogin(username, password);
+            let email = req.body.email;
+            const data = await UserDb.getUserLogin(email, password);
             if (data) {
                 let user = new User(data);
                 return Common.resultOk(res, user);

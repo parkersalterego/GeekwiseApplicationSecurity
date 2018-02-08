@@ -91,6 +91,7 @@ class PostController {
     }
 
     async getAll(req, res, next) {
+        console.log('getAll');
         try {
             const data = await PostDb.getAll();
             if (data) {

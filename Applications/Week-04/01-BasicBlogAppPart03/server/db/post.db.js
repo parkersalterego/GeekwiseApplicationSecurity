@@ -11,6 +11,7 @@ class PostDb {
     }
 
     static getAll() {
+        console.log('getAll posts');
         let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false ORDER BY id DESC`;
         console.log(query);
         return db.any(query);
