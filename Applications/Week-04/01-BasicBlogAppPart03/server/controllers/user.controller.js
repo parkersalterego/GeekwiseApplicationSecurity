@@ -1,7 +1,8 @@
 const User = require('../models/user.model');
 const UserDb = require('../db/user.db');
 const Common = require('./common');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+const cookieParser= require('cookie-parser');
 
 const SALT_ROUNDS = 15;
 
@@ -25,6 +26,7 @@ class UserController {
     }
 
     async login(req, res, next) {
+        console.log('request', req.cookie);
         try {
             let email = req.body.email;
             let password = req.body.password;
