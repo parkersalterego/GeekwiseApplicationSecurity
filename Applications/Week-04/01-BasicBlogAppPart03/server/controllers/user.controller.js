@@ -26,7 +26,6 @@ class UserController {
     }
 
     async login(req, res, next) {
-        console.log('request', req.cookie);
         try {
             let email = req.body.email;
             let password = req.body.password;
@@ -36,6 +35,7 @@ class UserController {
                 if (result) {
                     let user = new User(data);
                     return Common.resultOk(res, user);
+                    
                 } else {
                     return Common.resultNotFound(res, LOGIN_FAIL);
                 }

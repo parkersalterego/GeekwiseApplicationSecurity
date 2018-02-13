@@ -7,10 +7,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
+    res.cookie('Cookie', 'Monster');
     res.render('login', {});
 });
 
 router.post('/login', function(req, res, next) {
+    console.log('post');
     res.render('login', {});
 });
 
