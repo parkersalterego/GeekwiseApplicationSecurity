@@ -4,6 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const csrf = require('csurf');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -21,6 +22,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(csrf());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // check user cookie
