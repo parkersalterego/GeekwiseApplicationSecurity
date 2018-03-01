@@ -1,0 +1,1 @@
+ALTER TABLE "public"."users" ADD COLUMN "securityStamp" character(60) DEFAULT 'null';

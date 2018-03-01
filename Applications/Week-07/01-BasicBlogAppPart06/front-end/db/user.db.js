@@ -38,9 +38,9 @@ class UserDb {
         return db.result(query, [], r => r.rowCount);
     }
 
-    static register(username, email, password) {
-        let query = `INSERT into ${TABLENAME} (username, email, password) VALUES($1, $2, $3) RETURNING *`;
-        let params = [username, email, password];
+    static register(username, email, password, secStamp) {
+        let query = `INSERT into ${TABLENAME} (username, email, password, securityStamp) VALUES($1, $2, $3, $4) RETURNING *`;
+        let params = [username, email, password, secStamp];
         console.log(query, params);
         return db.one(query, params);
     }

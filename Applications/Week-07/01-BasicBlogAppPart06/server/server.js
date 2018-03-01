@@ -9,6 +9,8 @@ require( 'dotenv' )
 const controllers = require( './controllers/controllers' );
 const common = require( './controllers/common' );
 
+const UserDb = require('./db/user.db');
+
 //////////////////
 // Server Setup
 //////////////////
@@ -46,6 +48,21 @@ app.use( jwt( { secret: process.env.JWT_SECRET } )
     '/api/user/register' ]
   } )
 );
+
+// stamp auth
+app.use(async function(req, res, next) {
+  const authHeader = req.header['Authorization'];
+  const token = authHeader ? authHeader.split(' ') : null;
+  const tokenData = atob(token.split('.')[1]);
+
+  if ( token === null) {
+    let err = new Error('Token Invalid');
+    err.name = 'UnauthorizedError';
+    next(err);
+  } else {
+    const user = userDb.getOne()
+  }
+});
 
 //////////////////
 // API Queries

@@ -5,6 +5,7 @@ const bcrypt = require( 'bcryptjs' );
 const jwt = require( 'jsonwebtoken' );
 
 const SALT_ROUNDS = parseInt( process.env.SALT_ROUNDS );
+const STAMP_ROUNDS = '8';
 
 const LOGIN_FAIL = 'Email or Password was incorrect.';
 
@@ -34,7 +35,7 @@ class UserController {
         const result = await bcrypt.compare( password, data.password );
         if ( result ) {
           const user = new User( data );
-          const token = jwt.sign( { id: user.id, username: user.username },
+          const token = jwt.sign( { id: user.id, username: user.username, securityStamp: data.secStamp },
             process.env.JWT_SECRET, { expiresIn: '1h' }
           );
           return Common.resultOk( res, { token: token, user: user } );
@@ -67,10 +68,13 @@ class UserController {
         const hash = await bcrypt.hash( password, SALT_ROUNDS );
         return Common.userAlreadyExists( res );
       } else {
-        // calculate hash
+        // calculate pass hash
         const hash = await bcrypt.hash( password, SALT_ROUNDS );
+        // calc stamp hash 
+        const stampData = JSON.stringify({email: email, password: password});
+        const secStamp = await bcrypt.hash(stampData, STAMP_ROUNDS);
         // Store user account with hash
-        const user = await UserDb.register( username, email, hash );
+        const user = await UserDb.register( username, email, hash, secStamp );
         if ( user ) {
           Common.resultOk( res, new User( user ) );
         } else {
@@ -166,7 +170,7 @@ class UserController {
         return Common.resultOk( [] );
       }
     } catch ( e ) {
-      console.log( 'catch', e )
+      console.log( 'catch', e );
       return Common.resultErr( res, e.message );
     }
   }
