@@ -20,6 +20,10 @@ class UserDb {
     return db.oneOrNone( query, params );
   }
 
+  static getPermission( id ) {
+    
+  }
+
   static getAll() {
     const query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false ORDER BY id DESC`;
     console.log( query );

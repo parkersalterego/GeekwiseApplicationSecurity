@@ -11,6 +11,7 @@ class PostController {
       .put( this.updateOne )
       .delete( this.deleteOne );
     router.route( '/post' )
+      .get( this.checkRole )
       .get( this.getAll )
       .post( this.insertOne );
   }
@@ -87,6 +88,16 @@ class PostController {
       } else {
         return Common.resultErr( res, e.message );
       }
+    }
+  }
+
+  async checkRole(req, res, next ) {
+    try {
+      const role = await UserDb.getPermission();
+    }
+    
+    catch (e) {
+      return Common.resultNotFound(res, e.message);
     }
   }
 

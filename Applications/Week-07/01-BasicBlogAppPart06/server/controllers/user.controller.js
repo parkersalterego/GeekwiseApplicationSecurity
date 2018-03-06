@@ -42,6 +42,7 @@ class UserController {
       const email = req.body.email;
       const password = req.body.password;
       const data = await UserDb.getByEmail( email );
+
       if ( data ) {
         const result = await bcrypt.compare( password, data.password );
         if ( result ) {

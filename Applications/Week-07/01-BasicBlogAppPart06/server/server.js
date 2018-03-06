@@ -25,7 +25,7 @@ const insecureRoutes = [
 //////////////////
 
 app.set( "env", process.env.NODE_ENV || "development" );
-app.set( "host", process.env.HOST || "0.0.0.0" );
+app.set( "host", process.env.HOST || "192.168.99.100" );
 app.set( "port", process.env.PORT || 3000 );
 app.disable( 'x-powered-by' );
 
@@ -45,9 +45,9 @@ app.use( bodyParser.urlencoded( { extended: false } ) );
 // CORS
 // This allows client applications from other domains use the API Server
 app.use( function( req, res, next ) {
-  res.header( "Access-Control-Allow-Origin", "http://localhost:8080" );
+  res.header( "Access-Control-Allow-Origin", "http://192.168.99.100:8080" );
   res.header( "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization" );
-  res.header( "Access-Control-Allow-Methods", "GET,POST,PUT,DELETE" )
+  res.header( "Access-Control-Allow-Methods", "GET,POST,PUT,DELETE" );
   next();
 } );
 
