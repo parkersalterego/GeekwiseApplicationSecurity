@@ -43,7 +43,7 @@ function authenticate(user, pass, req, res){
 	//connect to MongoDB - auth not enabled 
 	//also, http interface enabled at http://localhost:28017/
 	//can bypass with query selector injection (i.e., user=admin&pass[$gt]=)
-	mongo.connect('mongodb://localhost:27017/users', function(err, db){
+	mongo.connect('mongodb://mongodb:27017/users', function(err, db){
 		if(err){ 
 			console.log('MongoDB connection error...');
 			return err;
@@ -67,7 +67,7 @@ function authenticate(user, pass, req, res){
 var queryMongo = function(res, database, collectionName, field, value){
 	//connect to MongoDB - auth not enabled 
 	//also, http interface enabled at http://localhost:28017/
-	mongo.connect('mongodb://localhost:27017/'+database, function(err, db){
+	mongo.connect('mongodb://mongodb:27017/'+database, function(err, db){
 		if(err){ 
 			console.log('MongoDB connection error...');
 			return err;
@@ -166,7 +166,7 @@ app.use(function (err, req, res, next) {
 app.get('/secure/removeInvoice', function(req, res){
 	//connect to MongoDB - auth not enabled 
 	//also, http interface enabled at http://localhost:28017/
-	mongo.connect('mongodb://localhost:27017/billing', function(err, db){
+	mongo.connect('mongodb://mongodb:27017/billing', function(err, db){
 		if(err){ 
 			console.log(err);
 			res.status(500).send('Could not connect to database...');
@@ -196,7 +196,7 @@ app.post('/secure/addInvoice', function(req, res){
 
 	//connect to MongoDB - auth not enabled 
 	//also, http interface enabled at http://localhost:28017/
-	mongo.connect('mongodb://localhost:27017/billing', function(err, db){
+	mongo.connect('mongodb://mongodb:27017/billing', function(err, db){
 		if(err){ 
 			console.log(err);
 			res.status(500).send('Could not add invoice...');
