@@ -122,4 +122,32 @@ function decryptAesGcm( id, data ) {
   }
 }
 
+function encryptAes( id, data ) {
+  const iv = crypto.randomBytes( 16 );
+  const cipher = crypto.createCipheriv( ' aes-256 ', ENCRYPTKEY, iv );
+  cipher.setAutoPadding( Buffer.from(id) );
+  var crypted = cipher.update(data, 'utf8', 'hex');
+
+  const tag = cipher.getAuthTag();
+  crypted = iv.toString( 'hex' ) + tag.toString( 'hex' ) + crypted;
+  return crypted;
+}
+
+function decryptAes( id, data ) {
+  try {
+    const iv = Buffer.from( data.substring( 0, 32), 'hex' );
+    const decipher = crypto.createDecipheriv( 'aes-256', ENCRYPTKEY, iv);
+
+    const tag = Buffer.from( data.substring( 0, 32 ), 'hex' );
+    decipher.setAuthTag( tag );
+    decipher.setAAD( Buffer.from( id ) );
+    var dec = decipher.update( data.substring( 64 ), 'hex', 'utf8' );
+    dec += decipher.final( 'utf8' );
+    return dec;
+  } catch (e) {
+    console.log(e);
+    return '';
+  }
+}
+
 module.exports = router;
